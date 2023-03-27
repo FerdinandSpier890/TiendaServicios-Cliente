@@ -120,7 +120,6 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      green: "#146b63",
       books: [],
       search: "",
       nuevoLibro: false,
