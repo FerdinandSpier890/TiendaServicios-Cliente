@@ -8,7 +8,7 @@
             <v-avatar size="100" color="indigo lighten-4">
               <v-icon size="40" color="indigo">mdi-account</v-icon>
             </v-avatar>
-            <h2 class="indigo--text">Iniciar Sesion</h2>
+            <h2 class="indigo--text">Crear Cuenta</h2>
           </div>
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
@@ -35,15 +35,11 @@
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn :loading="loading" type="submit" color="indigo">
-                <span class="white--text"
-                  ><v-icon>mdi-login</v-icon> Iniciar Sesión</span
-                >
+                <span class="white--text"><v-icon>mdi-account-box</v-icon> Registrarse</span>
               </v-btn>
               ㅤㅤ
               <div>
-                <v-btn color="primary" to="/registro"
-                  ><v-icon>mdi-account-box</v-icon> Crear Cuenta</v-btn
-                >
+                <v-btn color="primary" to="/"><v-icon>mdi-login</v-icon> Iniciar Sesion</v-btn>
               </div>
             </v-card-actions>
           </v-form>
@@ -52,43 +48,45 @@
     </v-main>
   </v-app>
 </template>
+
 <script>
-import Cookies from "js-cookie";
-import Swal from "sweetalert2";
 export default {
   name: "App",
 
-  data: () => ({
-    loading: false,
-    snackbar: false,
-    passwordShow: false,
-    userName: "",
-    usernameRules: [(v) => !!v || "El Nombre de Usuario es Requerido"],
-    password: "",
-    passwordRules: [
-      (v) => !!v || "La Contraseña es Requerida",
-      (v) =>
-        (v && v.length >= 6) || "La Contraseña Debe Tener 6 o Más Caracteres",
-    ],
-    snackbarColor: "",
-    snackbarText: "",
-  }),
+  data() {
+    return {
+      loading: false,
+      snackbar: false,
+      snackbarText: "",
+      snackbarColor: "",
+      passwordShow: false,
+      userName: "",
+      usernameRules: [(v) => !!v || "El Nombre de Usuario es Requerido"],
+      password: "",
+      passwordRules: [
+        (v) => !!v || "La Contraseña es Requerida",
+        (v) =>
+          (v && v.length >= 6) ||
+          "La Contraseña debe de tener 6 o mas Caracteres",
+      ],
+    };
+  },
+
   methods: {
     async submitHandler() {
       if (this.$refs.form.validate()) {
         try {
-          const user = {
-            userName: this.userName,
-            password: this.password,
-          };
           const response = await fetch(
-            "https://localhost:44321/api/Account/Login",
+            "https://localhost:44321/api/Account/Register",
             {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(user),
+              body: JSON.stringify({
+                userName: this.userName,
+                password: this.password,
+              }),
             }
           );
           if (!response.ok) {
@@ -96,41 +94,41 @@ export default {
             setTimeout(() => {
               Swal.fire({
                 title: "¡Error!",
-                text: "Error al Iniciar Sesión, Intentalo Mas Tarde",
+                text: "Por el Momento no Puedes Crear una Cuenta, Intentalo Mas Tarde",
                 icon: "error",
                 confirmButtonClass: "btn-error",
               });
               this.loading = false;
-            });
+              setTimeout(() => {
+                this.$router.push("/");
+              }, 4000);
+            }, 5000);
           } else {
-            const data = await response.json();
             this.loading = true;
             setTimeout(() => {
               Swal.fire({
-                title: "¡Bienvenido!",
-                text: ":D",
+                title: "¡Felicidades!",
+                text: "Ya Tienes una Cuenta :D",
                 icon: "success",
                 confirmButtonClass: "btn-success",
               });
-              Cookies.set("token", data.token);
               this.loading = false;
               setTimeout(() => {
-                this.$router.push("/autores");
-              }, 3000);
+                this.$router.push("/");
+              }, 4000);
             }, 5000);
           }
-        } catch (error) {
+        } catch (errorCatch) {
           this.loading = true;
           setTimeout(() => {
             Swal.fire({
-              title: "¡Error!",
-              text: "Intentalo Más Tarde, Intentalo Mas Tarde",
-              icon: "error",
-              confirmButtonClass: "btn-success",
-            });
-            console.log(error);
+                title: "¡Error!",
+                text: "Por el Momento no Puedes Crear una Cuenta, Intentalo Mas Tarde",
+                icon: "error",
+                confirmButtonClass: "btn-error",
+              });
             this.loading = false;
-          }, 5000);
+          }, 4000);
         }
       }
     },
