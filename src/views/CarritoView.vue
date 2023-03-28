@@ -201,6 +201,7 @@ export default {
           confirmButtonClass: "btn-success"
         });
         this.cart = [];
+        this.$router.push("/carritodetalle");
       }
     },
     async fetchProducts() {
