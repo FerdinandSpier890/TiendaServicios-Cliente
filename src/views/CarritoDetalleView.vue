@@ -90,7 +90,7 @@
 
               </v-col>
               <v-card
-                class="font-weight-bold text-center mx-auto d-flex align-center d-flex align-center justify-center"
+                class="font-weight-bold text-center mx-auto d-flex align-center d-flex align-center justify-center" style="border: 5px solid #2b6760"
               >
                 Total: ${{ getTotal(carrito).toFixed(2) }}
               </v-card>
