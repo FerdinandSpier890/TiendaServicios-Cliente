@@ -30,7 +30,7 @@
         <router-link to="/librerias" style="text-decoration: none;"><v-icon>mdi-library</v-icon> Librerias</router-link> |
         <router-link to="/libros" style="text-decoration: none;"><v-icon>mdi-book</v-icon> Libros</router-link> |
         <router-link to="/carrito" style="text-decoration: none;"><v-icon>mdi-cart</v-icon> Carrito de Compras</router-link> |
-        <router-link to="/carritodetalle" style="text-decoration: none;"><v-icon>mdi-cart-plus</v-icon> Detalle de las Compras</router-link> |
+        <router-link to="/carritodetalle" style="text-decoration: none;"><v-icon>mdi-store</v-icon> Detalle de las Compras</router-link> |
       </div>
 
       <v-spacer></v-spacer>

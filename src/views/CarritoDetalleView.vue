@@ -8,7 +8,8 @@
             <v-text-field
               v-model="search"
               label="Buscar por ID de la Compra"
-              prepend-inner-icon="mdi-book"
+              prepend-inner-icon="mdi-cart"
+              @input="fetchProducts"
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
@@ -17,47 +18,6 @@
             </v-btn>
           </v-col>
         </v-row>
-        <v-row class="d-flex align-center justify-center">
-          <v-col v-for="carrito in cartFiltered" :key="carrito.id" md="6">
-            <v-card
-              class="mx-auto"
-              max-width="250"
-              style="border: 5px solid #042c39"
-              elevation="10"
-            >
-              <v-img :src="imagen" height="200px" />
-
-              <v-card-title class="font-weight-bold"
-                >Compra #{{ carrito.carritoId }}</v-card-title
-              >
-              <v-card-text class="font-weight-bold"
-                >Fecha de la Compra #{{
-                  carrito.fechaCreacionSesion
-                }}</v-card-text
-              >
-              <hr />
-
-              <v-col
-                v-for="producto in carrito.listaDeProductos"
-                :key="producto.id"
-              >
-                <v-card class="font-weight-bold">
-                  Libro Adquirido: {{ producto.tituloLibro }}
-                </v-card>
-
-                <v-card class="font-weight-bold">
-                  Precio: ${{ producto.precio }}
-                </v-card>
-              </v-col>
-              <v-card
-                class="font-weight-bold text-center mx-auto d-flex align-center d-flex align-center justify-center"
-              >
-              Total: ${{ getTotal(carrito).toFixed(2) }}
-              </v-card>
-            </v-card>
-          </v-col>
-        </v-row>
-
         <v-row class="d-flex align-center justify-center">
           <v-col v-for="(carrito, index) in carritos" :key="index" md="4">
             <v-card
@@ -89,11 +49,13 @@
                 </v-card>
 
               </v-col>
-              <v-card
+              <v-col>
+                <v-card
                 class="font-weight-bold text-center mx-auto d-flex align-center d-flex align-center justify-center" style="border: 5px solid #2b6760"
               >
                 Total: ${{ getTotal(carrito).toFixed(2) }}
               </v-card>
+              </v-col>
             </v-card>
           </v-col>
         </v-row>
@@ -132,8 +94,8 @@ export default {
       );
     },
   },
-  mounted() {
-    this.fetchProducts();
+  created() {
+    this.mostrarDetalleVenta();
   },
   methods: {
     cerrarSesion() {
@@ -154,73 +116,34 @@ export default {
       }
     },
     async fetchProducts() {
-      try {
+      if (this.search === "") {
+        const response = await fetch("https://localhost:44335/api/CarritoCompras");
+        const data = await response.json();
+        this.carritos = data;
+      } else {
         const response = await fetch(
-          "https://localhost:44335/api/CarritoCompras"
+          `https://localhost:44335/api/CarritoCompras/${this.search}`
         );
         if (!response.ok) {
-          Swal.fire({
-            title: "¡Error!",
-            text: "No Se Puede Obtener las Compras",
-            icon: "error",
-            confirmButtonClass: "btn-error",
-          });
+          return;
         }
         const data = await response.json();
-        console.log(data);
-        this.carritos = data;
-      } catch (error) {
-        Swal.fire({
-          title: "¡Error!",
-          text: error,
-          icon: "error",
-          confirmButtonClass: "btn-error",
-        });
+        this.carritos = this.carritos = Array.isArray(data) ? data : [data];
       }
     },
-    async buscarCompra() {
-      // Obtener el token de la cookie
-      const token = Cookies.get("token");
-      // Verificar si el token está presente en la cookie
-      if (!token) {
+    async mostrarDetalleVenta() {
+      const response = await fetch("https://localhost:44335/api/CarritoCompras/");
+      if (!response.ok) {
         Swal.fire({
           title: "¡Error!",
-          text: "No Tienes Autorización para Buscar esta Compra, Inicia Sesión",
+          text: "No Se Pudo Obtener el Detalle de las Ventas, Intentalo de Nuevo",
           icon: "error",
-          confirmButtonClass: "btn-error",
+          confirmButtonClass: "btn-error"
         });
         return;
       }
-
-      try {
-        const response = await fetch(
-          `https://localhost:44335/api/CarritoCompras/${this.search}`,
-          {
-            method: "GET",
-            Authorization: `Bearer ${token}`,
-          }
-        );
-        if (!response.ok) {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "Todavía no se ha Realizado esa Compra",
-            confirmButtonClass: "btn-error",
-          });
-        } else {
-          const data = await response.json();
-          //console.log(data);
-          this.cart = Array.isArray(data) ? data : [data];
-        }
-      } catch (error) {
-        //console.error(error);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Todavia no se ha Realizado esa Compra.",
-          confirmButtonClass: "btn-error",
-        });
-      }
+      const data = await response.json();
+      this.carritos = data;
     },
   },
 };
