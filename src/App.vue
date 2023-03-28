@@ -26,11 +26,11 @@
       </div>
 
       <div id="nav">
-        <router-link to="/autores">Autores</router-link> |
-        <router-link to="/librerias">Librerias</router-link> |
-        <router-link to="/libros">Libros</router-link> |
-        <router-link to="/carrito">Carrito de Compras</router-link> |
-        <router-link to="/carritodetalle">Detalle de las Compras</router-link> |
+        <router-link to="/autores"><v-icon>mdi-account</v-icon> Autores</router-link> |
+        <router-link to="/librerias"><v-icon>mdi-book</v-icon> Librerias</router-link> |
+        <router-link to="/libros"><v-icon>mdi-book</v-icon> Libros</router-link> |
+        <router-link to="/carrito"><v-icon>mdi-cart</v-icon> Carrito de Compras</router-link> |
+        <router-link to="/carritodetalle"><v-icon>mdi-cart-plus</v-icon> Detalle de las Compras</router-link> |
       </div>
 
       <v-spacer></v-spacer>
