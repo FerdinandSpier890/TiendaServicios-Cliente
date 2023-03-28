@@ -74,13 +74,13 @@
               v-model="libreriaId"
               label="Id de la Libreria"
               required
-              prepend-inner-icon="mdi-book"
+              prepend-inner-icon="mdi-library"
             ></v-text-field>
             <v-text-field
               v-model="nombre"
               label="Nombre de la Libreria"
               required
-              prepend-inner-icon="mdi-book"
+              prepend-inner-icon="mdi-library"
             ></v-text-field>
             <v-text-field
               v-model="correoContacto"
