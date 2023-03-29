@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     async mostrarAutores() {
-      const response = await fetch("https://localhost:44320/api/Autor/");
+      const response = await fetch("https://localhost:44320/api/Autor");
       if (!response.ok) {
         Swal.fire({
           title: "¡Error!",

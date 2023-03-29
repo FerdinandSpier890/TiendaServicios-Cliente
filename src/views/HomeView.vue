@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <div class="background"></div>
     <v-main class="d-flex justify-center align-center">
       <v-col cols="10" lg="4" class="mx-auto">
@@ -145,5 +145,8 @@ export default {
   position: absolute;
   top: 0;
   background-size: cover;
+}
+.app{
+  margin-top: auto;
 }
 </style>

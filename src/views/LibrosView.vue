@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     async listaAutores() {
-      const response = await fetch("https://localhost:44320/api/Autor/");
+      const response = await fetch("https://localhost:44320/api/Autor");
       if (!response.ok) {
         Swal.fire({
           title: "¡Error!",
@@ -156,7 +156,7 @@ export default {
       this.autor = data; // data.map((autorLibro) => autorLibro.autorLibroGuid);
     },
     async mostrarLibros() {
-      const response = await fetch("https://localhost:44398/api/Libros/");
+      const response = await fetch("https://localhost:44398/api/Libros");
       if (!response.ok) {
         Swal.fire({
           title: "¡Error!",
@@ -171,7 +171,7 @@ export default {
     },
     async buscarLibro() {
       if (this.search === "") {
-        const response = await fetch("https://localhost:44398/api/Libros/");
+        const response = await fetch("https://localhost:44398/api/Libros");
         const data = await response.json();
         this.books = data;
       } else {
