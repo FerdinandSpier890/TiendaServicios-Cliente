@@ -45,7 +45,7 @@
       </v-list>
     </v-navigation-drawer>
     
-    <v-app-bar app color="blue-grey darken-4" dark>
+    <v-app-bar app color="blue-grey darken-4" dark responsive>
       <div class="d-flex align-center">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-toolbar-title>Libros Online</v-toolbar-title>
@@ -89,6 +89,9 @@
           <v-btn fab small color="indigo" class="mx-2" href="https://www.facebook.com/Lord.Peacock.890/"><v-icon>mdi-facebook</v-icon></v-btn>
           <v-btn fab small color="indigo" class="mx-2"><v-icon>mdi-twitter</v-icon></v-btn>
           <v-btn fab small color="indigo" class="mx-2" href="https://www.instagram.com/iam_lordp890/"><v-icon>mdi-instagram</v-icon></v-btn>
+          <v-btn fab small color="indigo" class="mx-2" href="https://pin.it/610vSg5"><v-icon>mdi-pinterest</v-icon></v-btn>
+          <v-btn fab small color="indigo" class="mx-2" href="https://www.tumblr.com/blog/renardrouge890"><i class="fa-brands fa-square-tumblr"></i></v-btn>
+          <v-btn fab small color="indigo" class="mx-2" href="https://github.com/RenardRouge890"><v-icon>mdi-github</v-icon></v-btn>
         </v-col>
         <v-col cols="12" md="4" class="text-center text-md-right">
           <h4 class="white--text">Contacto</h4>
@@ -113,14 +116,6 @@ export default {
 };
 </script>
 <style>
-#nav {
-  padding: 30px;
-}
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  @import "~@fortawesome/fontawesome-free/css/all.css";
 </style>
+
