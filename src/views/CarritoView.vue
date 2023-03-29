@@ -108,11 +108,11 @@
     </v-row>
     <br />
     <div class="text-center">
-      <v-btn color="success" @click="iniciarSesion">
+      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
         <v-icon>mdi-login</v-icon> Iniciar Sesión
       </v-btn>
       ㅤㅤ
-      <v-btn color="error" @click="cerrarSesion">
+      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
         <v-icon>mdi-logout</v-icon> Cerrar Sesión
       </v-btn>
     </div>
