@@ -24,7 +24,10 @@
               <v-card-actions>
                 <v-btn
                   class="mx-auto d-flex align-center"
-                  color="primary"
+                  depressed
+                  color="primary dark"
+                  dark
+                  elevation="10"
                   @click="addToCart(product)"
                 >
                   <v-icon>mdi-cart-plus</v-icon> Agregar al carrito
@@ -59,13 +62,18 @@
               <v-card-text class="font-weight-bold"
                 >Código de Autor: {{ item.autorLibro }}</v-card-text
               >
-              <v-card-title class="font-weight-bold"  style="font-size: 25px !important"
+              <v-card-title
+                class="font-weight-bold"
+                style="font-size: 25px !important"
                 >Precio: ${{ item.precio.toFixed(2) }}</v-card-title
               >
               <v-card-actions>
                 <v-btn
                   class="mx-auto d-flex align-center"
-                  color="error"
+                  depressed
+                  color="error dark"
+                  dark
+                  elevation="10"
                   @click="removeFromCart(index)"
                 >
                   <v-icon>mdi-cart-remove</v-icon> Eliminar
@@ -86,7 +94,10 @@
           <v-card-actions>
             <v-btn
               class="mx-auto d-flex align-center"
-              color="success"
+              depressed
+              color="success dark"
+              dark
+              elevation="10"
               @click="checkout()"
             >
               <v-icon>mdi-credit-card</v-icon> Comprar
@@ -149,7 +160,7 @@ export default {
           title: "¡Error!",
           text: "No Se Puede Procesar la Compra, No Hay Libros en el Carrito",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         return;
       }
@@ -162,7 +173,7 @@ export default {
           title: "¡Error!",
           text: "No Tienes Autorización para Hacer una Compra, Inicia Sesión",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         //this.cart = [];
         return;
@@ -189,7 +200,7 @@ export default {
           title: "¡Error!",
           text: "No Se Pudo Realizar la Compra, Intentalo de Nuevo",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         return;
       } else {
@@ -198,7 +209,7 @@ export default {
           title: "¡Compra Exitosa!",
           text: `Se Realizó la Compra Exitosamente,\nPagaste un Total de $${total}`,
           icon: "success",
-          confirmButtonClass: "btn-success"
+          confirmButtonClass: "btn-success",
         });
         this.cart = [];
         this.$router.push("/carritodetalle");
@@ -212,7 +223,7 @@ export default {
             title: "¡Error!",
             text: "No Se Puede Obtener los Libros",
             icon: "error",
-            confirmButtonClass: "btn-error"
+            confirmButtonClass: "btn-error",
           });
         }
         const data = await response.json();
@@ -222,7 +233,7 @@ export default {
           title: "¡Error!",
           text: error,
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
       }
     },

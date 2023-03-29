@@ -13,8 +13,8 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-btn block depressed color="success" @click="buscarCompra">
-              <v-icon>mdi-search</v-icon> Buscar
+            <v-btn block depressed color="info dark" dark elevation="10" @click="hacerCompra">
+              <v-icon>mdi-cart</v-icon> Hacer Compra
             </v-btn>
           </v-col>
         </v-row>
@@ -63,11 +63,11 @@
     </v-row>
     <br />
     <div class="text-center">
-      <v-btn color="success" @click="iniciarSesion">
+      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
         <v-icon>mdi-login</v-icon> Iniciar Sesión
       </v-btn>
       ㅤㅤ
-      <v-btn color="error" @click="cerrarSesion">
+      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
         <v-icon>mdi-logout</v-icon> Cerrar Sesión
       </v-btn>
     </div>
@@ -105,6 +105,9 @@ export default {
     },
     iniciarSesion() {
       this.$router.push("/");
+    },
+    hacerCompra() {
+      this.$router.push("/carrito");
     },
     getTotal(carrito) {
       if (carrito.listaDeProductos) {

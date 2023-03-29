@@ -15,7 +15,9 @@
         <v-btn
           block
           depressed
-          color="success"
+          color="info dark"
+          dark
+          elevation="10"
           @click="nuevoLibro = true"
           prepend-inner-icon="mdi-add"
         >
@@ -29,7 +31,7 @@
           <v-card
             class="mx-auto align-center"
             max-width="250"
-            style="border: 5px solid #3e7864;"
+            style="border: 5px solid #3e7864"
             elevation="10"
           >
             <v-img :src="imagen" height="200px" />
@@ -55,11 +57,11 @@
     </v-col>
     <br />
     <div class="text-center">
-      <v-btn color="success" @click="iniciarSesion">
+      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
         <v-icon>mdi-login</v-icon> Iniciar Sesión
       </v-btn>
       ㅤㅤ
-      <v-btn color="error" @click="cerrarSesion">
+      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
         <v-icon>mdi-logout</v-icon> Cerrar Sesión
       </v-btn>
     </div>
@@ -146,7 +148,7 @@ export default {
           title: "¡Error!",
           text: "No se Pudo Obtener los Autores, Intentalo de Nuevo",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         return;
       }
@@ -160,7 +162,7 @@ export default {
           title: "¡Error!",
           text: "No se Pudo Obtener los Libros, Intentalo de Nuevo",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         return;
       }
@@ -192,7 +194,7 @@ export default {
           title: "¡Error!",
           text: "No Tienes Autorización para Registrar un Libro, Inicia Sesión",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         return;
       }
@@ -220,7 +222,7 @@ export default {
           title: "¡Error!",
           text: "No Se Pudo Registrar el Libro, Intentalo de Nuevo",
           icon: "error",
-          confirmButtonClass: "btn-error"
+          confirmButtonClass: "btn-error",
         });
         return;
       } else {
@@ -228,7 +230,7 @@ export default {
           title: "¡Registro Exitoso!",
           text: "Se Registró el Libro Exitosamente",
           icon: "success",
-          confirmButtonClass: "btn-success"
+          confirmButtonClass: "btn-success",
         });
       }
 
