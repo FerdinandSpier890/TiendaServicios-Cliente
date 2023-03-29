@@ -87,7 +87,6 @@
         <v-col cols="12" md="4" class="text-center">
           <h4 class="white--text">Redes Sociales</h4>
           <v-btn fab small color="indigo" class="mx-2" href="https://www.facebook.com/Lord.Peacock.890/"><v-icon>mdi-facebook</v-icon></v-btn>
-          <v-btn fab small color="indigo" class="mx-2"><v-icon>mdi-twitter</v-icon></v-btn>
           <v-btn fab small color="indigo" class="mx-2" href="https://www.instagram.com/iam_lordp890/"><v-icon>mdi-instagram</v-icon></v-btn>
           <v-btn fab small color="indigo" class="mx-2" href="https://pin.it/610vSg5"><v-icon>mdi-pinterest</v-icon></v-btn>
           <v-btn fab small color="indigo" class="mx-2" href="https://www.tumblr.com/blog/renardrouge890"><i class="fa-brands fa-square-tumblr"></i></v-btn>
