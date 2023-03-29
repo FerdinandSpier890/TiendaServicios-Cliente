@@ -12,26 +12,12 @@
           </div>
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
-              <v-text-field
-                v-model="userName"
-                :rules="usernameRules"
-                type="text"
-                label="Nombre de Usuario"
-                placeholder="Nombre de Usuario"
-                prepend-inner-icon="mdi-account"
-                required
-              />
-              <v-text-field
-                v-model="password"
-                :rules="passwordRules"
-                :type="passwordShow ? 'text' : 'password'"
-                label="Contraseña"
-                placeholder="Contraseña"
-                prepend-inner-icon="mdi-key"
-                :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="passwordShow = !passwordShow"
-                required
-              />
+              <v-text-field v-model="userName" :rules="usernameRules" type="text" label="Nombre de Usuario"
+                placeholder="Nombre de Usuario" prepend-inner-icon="mdi-account" required />
+              <v-text-field v-model="password" :rules="passwordRules" :type="passwordShow ? 'text' : 'password'"
+                label="Contraseña" placeholder="Contraseña" prepend-inner-icon="mdi-key"
+                :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'" @click:append="passwordShow = !passwordShow"
+                required />
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn :loading="loading" type="submit" color="indigo">
@@ -50,6 +36,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 export default {
   name: "App",
 
@@ -89,49 +76,64 @@ export default {
               }),
             }
           );
-          if (!response.ok) {
+          if (!response.ok || response.status == 400) {
             this.loading = true;
             setTimeout(() => {
               Swal.fire({
                 title: "¡Error!",
-                text: "Por el Momento no Puedes Crear una Cuenta, Intentalo Mas Tarde",
+                text: "Por el Momento no Puedes Crear una Cuenta, Ese Usuario Ya Existe, Intentalo Mas Tarde",
                 icon: "error",
                 confirmButtonClass: "btn-error",
               });
               this.loading = false;
-              setTimeout(() => {
-                this.$router.push("/");
-              }, 4000);
             }, 5000);
           } else {
-            this.loading = true;
-            setTimeout(() => {
+            const responseData = await response.json();
+            if (responseData.status == 400) {
               Swal.fire({
-                title: "¡Felicidades!",
-                text: "Ya Tienes una Cuenta :D",
-                icon: "success",
-                confirmButtonClass: "btn-success",
+                title: "¡Error!",
+                text: "El Nombre de Usuario ya Existe",
+                icon: "error",
+                confirmButtonClass: "btn-error",
               });
-              this.loading = false;
+            } else {
+              this.loading = true;
               setTimeout(() => {
-                this.$router.push("/");
-              }, 4000);
-            }, 5000);
+                Swal.fire({
+                  title: "¡Felicidades!",
+                  text: "Ya Tienes una Cuenta :D",
+                  icon: "success",
+                  confirmButtonClass: "btn-success",
+                });
+                this.loading = false;
+                setTimeout(() => {
+                  this.$router.push("/");
+                }, 3000);
+              }, 5000);
+            }
           }
         } catch (errorCatch) {
           this.loading = true;
           setTimeout(() => {
             Swal.fire({
-                title: "¡Error!",
-                text: "Por el Momento no Puedes Crear una Cuenta, Intentalo Mas Tarde",
-                icon: "error",
-                confirmButtonClass: "btn-error",
-              });
+              title: "¡Error!",
+              text: "Por el Momento no Puedes Crear una Cuenta, Intentalo Mas Tarde",
+              icon: "error",
+              confirmButtonClass: "btn-error",
+            });
             this.loading = false;
-          }, 4000);
+          }, 5000);
         }
+      } else {
+        Swal.fire({
+          title: "¡Error!",
+          text: "Por el Momento no Puedes Crear una Cuenta, Intentalo Mas Tarde",
+          icon: "error",
+          confirmButtonClass: "btn-error",
+        });
       }
     },
+
   },
 };
 </script>

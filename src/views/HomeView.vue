@@ -12,38 +12,20 @@
           </div>
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
-              <v-text-field
-                v-model="userName"
-                :rules="usernameRules"
-                type="text"
-                label="Nombre de Usuario"
-                placeholder="Nombre de Usuario"
-                prepend-inner-icon="mdi-account"
-                required
-              />
-              <v-text-field
-                v-model="password"
-                :rules="passwordRules"
-                :type="passwordShow ? 'text' : 'password'"
-                label="Contraseña"
-                placeholder="Contraseña"
-                prepend-inner-icon="mdi-key"
-                :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="passwordShow = !passwordShow"
-                required
-              />
+              <v-text-field v-model="userName" :rules="usernameRules" type="text" label="Nombre de Usuario"
+                placeholder="Nombre de Usuario" prepend-inner-icon="mdi-account" required />
+              <v-text-field v-model="password" :rules="passwordRules" :type="passwordShow ? 'text' : 'password'"
+                label="Contraseña" placeholder="Contraseña" prepend-inner-icon="mdi-key"
+                :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'" @click:append="passwordShow = !passwordShow"
+                required />
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn :loading="loading" type="submit" color="indigo">
-                <span class="white--text"
-                  ><v-icon>mdi-login</v-icon> Iniciar Sesión</span
-                >
+                <span class="white--text"><v-icon>mdi-login</v-icon> Iniciar Sesión</span>
               </v-btn>
               ㅤㅤ
               <div>
-                <v-btn color="primary" to="/registro"
-                  ><v-icon>mdi-account-box</v-icon> Crear Cuenta</v-btn
-                >
+                <v-btn color="primary" to="/registro"><v-icon>mdi-account-box</v-icon> Crear Cuenta</v-btn>
               </div>
             </v-card-actions>
           </v-form>
@@ -124,7 +106,7 @@ export default {
           setTimeout(() => {
             Swal.fire({
               title: "¡Error!",
-              text: "Intentalo Más Tarde, Intentalo Mas Tarde",
+              text: "Error la Iniciar Sesión, Intentalo Mas Tarde",
               icon: "error",
               confirmButtonClass: "btn-success",
             });
@@ -132,6 +114,13 @@ export default {
             this.loading = false;
           }, 5000);
         }
+      } else {
+        Swal.fire({
+          title: "¡Error!",
+          text: "Error al Iniciar Sesión, Intentalo Mas Tarde",
+          icon: "error",
+          confirmButtonClass: "btn-error",
+        });
       }
     },
   },
@@ -146,7 +135,8 @@ export default {
   top: 0;
   background-size: cover;
 }
-.app{
+
+.app {
   margin-top: auto;
 }
 </style>
