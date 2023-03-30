@@ -119,16 +119,14 @@ export default {
       userNameToken: ""
     }
   },
-  methods: {
-    usuarioLoggeado() {
-      const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
-      // Decodificar el token para obtener el nombre de usuario
-      const decodedToken = JSON.parse(tokenUserName);
-      this.userNameToken = decodedToken.userName; // asignar el valor a la variable del componente
+  created() {
+    const userLogged = decodeURIComponent(Cookies.get('userLogged'));
+    const decodedToken = JSON.parse(userLogged);
+    if (decodedToken) {
+      this.userNameToken = decodedToken.userName;
     }
   },
-  mounted() {
-    this.usuarioLoggeado(); // llamar al método al cargar el componente
+  methods: {
   },
 };
 </script>
