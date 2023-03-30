@@ -37,6 +37,7 @@
 <script>
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import auth from '../logic/auth.js'
 export default {
   name: "App",
 
@@ -95,6 +96,7 @@ export default {
                 confirmButtonClass: "btn-success",
               });
               Cookies.set("token", data.token);
+              auth.setUserLogged(JSON.stringify(user))
               this.loading = false;
               setTimeout(() => {
                 this.$router.push("/autores");

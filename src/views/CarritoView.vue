@@ -178,9 +178,16 @@ export default {
         //this.cart = [];
         return;
       }
+      // Obtener la cookie con el nombre "userLogged"
+      const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
+
+      // Decodificar el token para obtener el nombre de usuario
+      const decodedToken = JSON.parse(tokenUserName);
+      const userName = decodedToken.userName;
 
       const nuevaCompra = {
         fechaCreacionSesion: this.fechaCreacionSesion,
+        userName: userName,
         productoLista: this.cart.map((producto) => producto.libreriaMateriaId),
       };
       const response = await fetch(

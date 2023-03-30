@@ -48,7 +48,7 @@
     <v-app-bar app color="blue-grey darken-4" dark responsive>
       <div class="d-flex align-center">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-toolbar-title>Libros Online</v-toolbar-title>
+        <v-toolbar-title>Tienda Servicios</v-toolbar-title>
         <v-spacer></v-spacer>
         
         <v-btn text to="/autores"
@@ -63,6 +63,11 @@
         >
         <v-btn text to="/carritodetalle"
           ><v-icon left>mdi-store</v-icon>Detalle de compras</v-btn
+        >
+
+        <br/>
+        <v-btn
+          ><v-icon left>mdi-account</v-icon> {{ this.userNameToken }} </v-btn
         >
         
       </div>
@@ -104,14 +109,27 @@
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   name: "App",
 
   data(){
     return{
-      drawer: false
+      drawer: false,
+      userNameToken: ""
     }
-  }
+  },
+  methods: {
+    usuarioLoggeado() {
+      const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
+      // Decodificar el token para obtener el nombre de usuario
+      const decodedToken = JSON.parse(tokenUserName);
+      this.userNameToken = decodedToken.userName; // asignar el valor a la variable del componente
+    }
+  },
+  mounted() {
+    this.usuarioLoggeado(); // llamar al método al cargar el componente
+  },
 };
 </script>
 <style>

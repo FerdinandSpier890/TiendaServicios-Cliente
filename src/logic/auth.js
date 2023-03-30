@@ -32,6 +32,7 @@ export default {
   },
   async deleteUserLogged () {
     await Cookies.remove('token');
+    await Cookies.remove('userLogged');
     //Cookies.remove('userLogged')
   },
   async setUserLogged (userLogged) {

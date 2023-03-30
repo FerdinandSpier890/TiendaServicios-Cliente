@@ -5,12 +5,10 @@
         <h2>Detalle de la Compra</h2>
         <v-row>
           <v-col>
-            <v-text-field
-              v-model="search"
-              label="Buscar por ID de la Compra"
-              prepend-inner-icon="mdi-cart"
-              @input="fetchProducts"
-            ></v-text-field>
+            <!--
+            <v-text-field v-model="search" label="Buscar por ID de la Compra" prepend-inner-icon="mdi-cart"
+              @input="fetchProducts"></v-text-field>
+              -->
           </v-col>
           <v-col cols="12" md="6">
             <v-btn block depressed color="info dark" dark elevation="10" @click="hacerCompra">
@@ -20,41 +18,35 @@
         </v-row>
         <v-row class="d-flex align-center justify-center">
           <v-col v-for="(carrito, index) in carritos" :key="index" md="4">
-            <v-card
-              class="mx-auto"
-              max-width="250"
-              style="border: 5px solid #042c39"
-              elevation="10"
-            >
+            <v-card class="mx-auto" max-width="250" style="border: 5px solid #042c39" elevation="10">
               <v-img :src="imagen" height="200px" />
-             
 
-              <v-card-title class="font-weight-bold"
-                >Compra #{{ carrito.carritoId }}</v-card-title
-              >
-              <v-card-text class="font-weight-bold"
-                >Fecha de la Compra #{{
-                  carrito.fechaCreacionSesion
-                }}</v-card-text
-              >
+
+              <v-card-title class="font-weight-bold">Compra #{{ carrito.carritoId }}</v-card-title>
+              <v-card-text class="font-weight-bold">Fecha de la Compra #{{
+                carrito.fechaCreacionSesion
+              }}</v-card-text>
+
+              <v-card-text class="font-weight-bold">Compra Hecha Por: {{
+                carrito.userName
+              }}</v-card-text>
+
               <hr />
 
-              <v-col
-              v-for="(producto, index) in carrito.listaDeProductos" :key="index"
-              >
+              <v-col v-for="(producto, index) in carrito.listaDeProductos" :key="index">
                 <v-card class="font-weight-bold" style="border: 5px solid #64d3bb">
                   Libro Adquirido: {{ producto.tituloLibro }}
-                  <br/>
+                  <br />
                   Precio: ${{ producto.precio }}
                 </v-card>
 
               </v-col>
               <v-col>
                 <v-card
-                class="font-weight-bold text-center mx-auto d-flex align-center d-flex align-center justify-center" style="border: 5px solid #2b6760"
-              >
-                Total: ${{ getTotal(carrito).toFixed(2) }}
-              </v-card>
+                  class="font-weight-bold text-center mx-auto d-flex align-center d-flex align-center justify-center"
+                  style="border: 5px solid #2b6760">
+                  Total: ${{ getTotal(carrito).toFixed(2) }}
+                </v-card>
               </v-col>
             </v-card>
           </v-col>
@@ -118,11 +110,20 @@ export default {
         return 0;
       }
     },
+    /*
     async fetchProducts() {
       if (this.search === "") {
         const response = await fetch("https://localhost:44335/api/CarritoCompras");
         const data = await response.json();
-        this.carritos = data;
+        // Obtener la cookie con el nombre "userLogged"
+        const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
+
+        // Decodificar el token para obtener el nombre de usuario y el id del usuario
+        const decodedToken = JSON.parse(tokenUserName);
+        const userNameToken = decodedToken.userName;
+        
+
+        this.carritos = data.filter((carrito) => carrito.userName === userNameToken);
       } else {
         const response = await fetch(
           `https://localhost:44335/api/CarritoCompras/${this.search}`
@@ -131,9 +132,18 @@ export default {
           return;
         }
         const data = await response.json();
-        this.carritos = this.carritos = Array.isArray(data) ? data : [data];
+        // Obtener la cookie con el nombre "userLogged"
+        const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
+
+        // Decodificar el token para obtener el nombre de usuario y el id del usuario
+        const decodedToken = JSON.parse(tokenUserName);
+        const userNameToken = decodedToken.userName;
+
+        this.carritos = Array.isArray(data) ? data.filter((carrito) => carrito.userName === userNameToken) : [data];
       }
     },
+    */
+
     async mostrarDetalleVenta() {
       const response = await fetch("https://localhost:44335/api/CarritoCompras/");
       if (!response.ok) {
@@ -146,7 +156,14 @@ export default {
         return;
       }
       const data = await response.json();
-      this.carritos = data;
+      // Obtener la cookie con el nombre "userLogged"
+      const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
+
+      // Decodificar el token para obtener el nombre de usuario
+      const decodedToken = JSON.parse(tokenUserName);
+      const userNameToken = decodedToken.userName;
+
+      this.carritos = data.filter((carrito) => carrito.userName === userNameToken);
     },
   },
 };
