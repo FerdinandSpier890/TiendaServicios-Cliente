@@ -127,7 +127,7 @@ export default {
       this.userNameToken = decodedToken.userName; // asignar el valor a la variable del componente
     }
   },
-  created() {
+  mounted() {
     this.usuarioLoggeado(); // llamar al método al cargar el componente
   },
 };

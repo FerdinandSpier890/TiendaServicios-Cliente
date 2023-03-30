@@ -143,7 +143,6 @@ export default {
       }
     },
     */
-
     async mostrarDetalleVenta() {
       const response = await fetch("https://localhost:44335/api/CarritoCompras/");
       if (!response.ok) {
