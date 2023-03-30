@@ -43,7 +43,11 @@
               >ISBN: {{ libros.libreriaMateriaId }}</v-card-text
             >
             <v-card-text class="font-weight-bold"
-              >Fecha de Publicación: {{ libros.fechaPublicacion }}</v-card-text
+              >Fecha de Publicación: {{ (new
+                    Date(libros.fechaPublicacion)).toLocaleDateString('es-ES', {
+                      day: '2-digit', month: '2-digit',
+                      year: 'numeric'
+                    }) }}</v-card-text
             >
             <v-card-text class="font-weight-bold"
               >Precio: ${{ libros.precio }}</v-card-text

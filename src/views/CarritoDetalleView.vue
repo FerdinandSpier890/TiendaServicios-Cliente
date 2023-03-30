@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <h2>Detalle de la Compra</h2>
+        <h2>Detalle de Compras</h2>
         <v-row>
           <v-col>
             <!--
@@ -21,15 +21,22 @@
             <v-card class="mx-auto" max-width="250" style="border: 5px solid #042c39" elevation="10">
               <v-img :src="imagen" height="200px" />
 
+              <v-col>
+                <v-card style="border: 5px solid #2b6760">
+                  <v-card-title class="font-weight-bold">Compra #{{ carrito.carritoId
+                  }}</v-card-title>
+                </v-card>
+              </v-col>
 
-              <v-card-title class="font-weight-bold">Compra #{{ carrito.carritoId }}</v-card-title>
-              <v-card-text class="font-weight-bold">Fecha de la Compra #{{
-                carrito.fechaCreacionSesion
-              }}</v-card-text>
-
-              <v-card-text class="font-weight-bold">Compra Hecha Por: {{
-                carrito.userName
-              }}</v-card-text>
+              <v-col>
+                <v-card class="font-weight-bold" style="border: 5px solid #64d3bb">Fecha de la Compra: <br />{{ (new
+                  Date(carrito.fechaCreacionSesion)).toLocaleDateString('es-ES', {
+                    day: '2-digit', month: '2-digit',
+                    year: 'numeric'
+                  }) }} <br /> Compra Hecha Por: {{
+    carrito.userName.toUpperCase()
+  }}</v-card>
+              </v-col>
 
               <hr />
 

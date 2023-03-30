@@ -5,31 +5,17 @@
         <h2>Libros Disponibles</h2>
         <v-row>
           <v-col v-for="product in products" :key="product.id" md="6">
-            <v-card
-              class="mx-auto"
-              max-width="350"
-              style="border: 5px solid #3e7864"
-              elevation="10"
-            >
+            <v-card class="mx-auto" max-width="350" style="border: 5px solid #3e7864" elevation="10">
               <v-img :src="imagen" height="200px" />
               <v-card-title class="font-weight-bold">{{
                 product.titulo
               }}</v-card-title>
               <hr />
-              <v-card-text
-                class="text-center font-weight-bold"
-                style="font-size: 20px !important"
-                >${{ product.precio.toFixed(2) }}</v-card-text
-              >
+              <v-card-text class="text-center font-weight-bold" style="font-size: 20px !important">${{
+                product.precio.toFixed(2) }}</v-card-text>
               <v-card-actions>
-                <v-btn
-                  class="mx-auto d-flex align-center"
-                  depressed
-                  color="primary dark"
-                  dark
-                  elevation="10"
-                  @click="addToCart(product)"
-                >
+                <v-btn class="mx-auto d-flex align-center" depressed color="primary dark" dark elevation="10"
+                  @click="addToCart(product)">
                   <v-icon>mdi-cart-plus</v-icon> Agregar al carrito
                 </v-btn>
               </v-card-actions>
@@ -42,40 +28,24 @@
         <br />
         <v-row>
           <v-col v-for="(item, index) in cart" :key="index" md="6">
-            <v-card
-              class="mx-auto"
-              max-width="350"
-              style="border: 5px solid #3e7864"
-              elevation="10"
-            >
+            <v-card class="mx-auto" max-width="350" style="border: 5px solid #3e7864" elevation="10">
               <v-img :src="imagen" height="200px" />
               <v-card-title class="font-weight-bold">{{
                 item.titulo
               }}</v-card-title>
               <hr />
-              <v-card-text class="font-weight-bold"
-                >ISBN: {{ item.libreriaMateriaId }}</v-card-text
-              >
-              <v-card-text class="font-weight-bold"
-                >Fecha de Publicacion: {{ item.fechaPublicacion }}</v-card-text
-              >
-              <v-card-text class="font-weight-bold"
-                >Código de Autor: {{ item.autorLibro }}</v-card-text
-              >
-              <v-card-title
-                class="font-weight-bold"
-                style="font-size: 25px !important"
-                >Precio: ${{ item.precio.toFixed(2) }}</v-card-title
-              >
+              <v-card-text class="font-weight-bold">ISBN: {{ item.libreriaMateriaId }}</v-card-text>
+              <v-card-text class="font-weight-bold">Fecha de Publicacion: {{ (new
+                Date(item.fechaPublicacion)).toLocaleDateString('es-ES', {
+                  day: '2-digit', month: '2-digit',
+                  year: 'numeric'
+                }) }}</v-card-text>
+              <v-card-text class="font-weight-bold">Código de Autor: {{ item.autorLibro }}</v-card-text>
+              <v-card-title class="font-weight-bold" style="font-size: 25px !important">Precio: ${{ item.precio.toFixed(2)
+              }}</v-card-title>
               <v-card-actions>
-                <v-btn
-                  class="mx-auto d-flex align-center"
-                  depressed
-                  color="error dark"
-                  dark
-                  elevation="10"
-                  @click="removeFromCart(index)"
-                >
+                <v-btn class="mx-auto d-flex align-center" depressed color="error dark" dark elevation="10"
+                  @click="removeFromCart(index)">
                   <v-icon>mdi-cart-remove</v-icon> Eliminar
                 </v-btn>
               </v-card-actions>
@@ -86,20 +56,13 @@
         <v-card class="mt-3" style="border: 5px solid #3e7864" elevation="10">
           <v-card-title
             class="text-center font-weight-bold mx-auto d-flex align-center d-flex align-center justify-center"
-            style="font-size: 25px !important"
-          >
+            style="font-size: 25px !important">
             Total a Pagar: ${{ getTotal.toFixed(2) }}
           </v-card-title>
 
           <v-card-actions>
-            <v-btn
-              class="mx-auto d-flex align-center"
-              depressed
-              color="success dark"
-              dark
-              elevation="10"
-              @click="checkout()"
-            >
+            <v-btn class="mx-auto d-flex align-center" depressed color="success dark" dark elevation="10"
+              @click="checkout()">
               <v-icon>mdi-credit-card</v-icon> Comprar
             </v-btn>
           </v-card-actions>
@@ -218,6 +181,7 @@ export default {
           icon: "success",
           confirmButtonClass: "btn-success",
         });
+
         this.cart = [];
         this.$router.push("/carritodetalle");
       }

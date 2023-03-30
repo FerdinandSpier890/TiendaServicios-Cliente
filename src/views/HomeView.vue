@@ -96,10 +96,11 @@ export default {
                 confirmButtonClass: "btn-success",
               });
               Cookies.set("token", data.token);
-              auth.setUserLogged(JSON.stringify(user))
+              auth.setUserLogged(JSON.stringify(user));
               this.loading = false;
               setTimeout(() => {
                 this.$router.push("/autores");
+                location.reload();
               }, 3000);
             }, 5000);
           }

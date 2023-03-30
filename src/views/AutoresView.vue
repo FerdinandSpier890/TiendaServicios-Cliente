@@ -4,23 +4,12 @@
     <h1>Autores</h1>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field
-          v-model="search"
-          label="Buscar por GUID"
-          @input="buscarAutor"
-          prepend-inner-icon="mdi-account"
-        ></v-text-field>
+        <v-text-field v-model="search" label="Buscar por GUID" @input="buscarAutor"
+          prepend-inner-icon="mdi-account"></v-text-field>
       </v-col>
       <v-col cols="12" md="6">
-        <v-btn
-          block
-          depressed
-          color="info dark"
-          dark
-          elevation="10"
-          @click="nuevoAutor = true"
-          prepend-inner-icon="mdi-add"
-        >
+        <v-btn block depressed color="info dark" dark elevation="10" @click="nuevoAutor = true"
+          prepend-inner-icon="mdi-add">
           <v-icon left>mdi-plus</v-icon> Nuevo Autor
         </v-btn>
       </v-col>
@@ -28,46 +17,27 @@
     <v-col>
       <v-row class="d-flex align-center justify-center">
         <v-col v-for="autor in people" :key="autor.id" md="3">
-          <v-card
-            class="mx-auto"
-            max-width="250"
-            style="border: 5px solid #b4fbfb"
-            elevation="10"
-          >
+          <v-card class="mx-auto" max-width="250" style="border: 5px solid #b4fbfb" elevation="10">
             <v-img :src="imagen" height="200px" />
-            <v-card-title class="font-weight-bold"
-              >{{ autor.nombre }} {{ autor.apellido }}</v-card-title
-            >
+            <v-card-title class="font-weight-bold">{{ autor.nombre }} {{ autor.apellido }}</v-card-title>
             <hr />
-            <v-card-text class="font-weight-bold"
-              >Fecha de Nacimiento: {{ autor.fechaNacimiento }}</v-card-text
-            >
-            <v-card-text class="font-weight-bold"
-              >Código de Autor: {{ autor.autorLibroGuid }}</v-card-text
-            >
+            <v-card-text class="font-weight-bold">Fecha de Nacimiento: {{ (new
+              Date(autor.fechaNacimiento)).toLocaleDateString('es-ES', {
+                day: '2-digit', month: '2-digit',
+                year: 'numeric'
+              }) }}</v-card-text>
+            <v-card-text class="font-weight-bold">Código de Autor: {{ autor.autorLibroGuid }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
     </v-col>
     <br />
     <div class="text-center">
-      <v-btn
-        depressed
-        color="success dark"
-        dark
-        elevation="10"
-        @click="iniciarSesion"
-      >
+      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
         <v-icon>mdi-login</v-icon> Iniciar Sesión
       </v-btn>
       ㅤㅤ
-      <v-btn
-        depressed
-        color="error dark"
-        dark
-        elevation="10"
-        @click="cerrarSesion"
-      >
+      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
         <v-icon>mdi-logout</v-icon> Cerrar Sesión
       </v-btn>
     </div>
@@ -78,24 +48,10 @@
         </v-card-title>
         <v-card-text>
           <v-form v-model="valid">
-            <v-text-field
-              v-model="nombre"
-              label="Nombre"
-              required
-              prepend-inner-icon="mdi-account"
-            ></v-text-field>
-            <v-text-field
-              v-model="apellido"
-              label="Apellido"
-              required
-              prepend-inner-icon="mdi-account"
-            ></v-text-field>
-            <v-text-field
-              v-model="fechaNacimiento"
-              label="Fecha de Nacimiento"
-              required
-              prepend-inner-icon="mdi-calendar-month"
-            ></v-text-field>
+            <v-text-field v-model="nombre" label="Nombre" required prepend-inner-icon="mdi-account"></v-text-field>
+            <v-text-field v-model="apellido" label="Apellido" required prepend-inner-icon="mdi-account"></v-text-field>
+            <v-text-field v-model="fechaNacimiento" label="Fecha de Nacimiento" required
+              prepend-inner-icon="mdi-calendar-month"></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions>
