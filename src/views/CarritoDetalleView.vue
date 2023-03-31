@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <h2>Detalle de Compras</h2>
+        <h2>Detalle de Compras de {{ userNameToken }}</h2>
         <v-row>
           <v-col>
             <!--

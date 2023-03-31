@@ -55,7 +55,7 @@
         <v-btn text to="/librerias"><v-icon left>mdi-library</v-icon>Librerías</v-btn>
         <v-btn text to="/libros"><v-icon left>mdi-book</v-icon>Libros</v-btn>
         <v-btn text to="/carrito"><v-icon left>mdi-cart</v-icon> Carrito de compras</v-btn>
-        <v-btn text to="/carritodetalle"><v-icon left>mdi-store</v-icon>Detalle de Compras por Usuario</v-btn>
+        <v-btn text to="/carritodetalle"><v-icon left>mdi-store</v-icon>Detalle de Mis Compras</v-btn>
         <v-btn text to="/detallegeneral"><v-icon left>mdi-store</v-icon>Detalle de Compras en General</v-btn>
 
         <br />
