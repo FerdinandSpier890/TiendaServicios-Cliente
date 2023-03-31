@@ -2,14 +2,8 @@
   <v-container>
     <v-row>
       <v-col>
-        <h2>Detalle de Compras de {{ userNameToken }}</h2>
+        <h2>Detalle de Compras de {{carrito.userName.toUpperCase()}}</h2>
         <v-row>
-          <v-col>
-            <!--
-            <v-text-field v-model="search" label="Buscar por ID de la Compra" prepend-inner-icon="mdi-cart"
-              @input="fetchProducts"></v-text-field>
-              -->
-          </v-col>
           <v-col cols="12" md="6">
             <v-btn block depressed color="info dark" dark elevation="10" @click="hacerCompra">
               <v-icon>mdi-cart</v-icon> Hacer Compra
@@ -117,39 +111,6 @@ export default {
         return 0;
       }
     },
-    /*
-    async fetchProducts() {
-      if (this.search === "") {
-        const response = await fetch("https://localhost:44335/api/CarritoCompras");
-        const data = await response.json();
-        // Obtener la cookie con el nombre "userLogged"
-        const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
-
-        // Decodificar el token para obtener el nombre de usuario y el id del usuario
-        const decodedToken = JSON.parse(tokenUserName);
-        const userNameToken = decodedToken.userName;
-        
-
-        this.carritos = data.filter((carrito) => carrito.userName === userNameToken);
-      } else {
-        const response = await fetch(
-          `https://localhost:44335/api/CarritoCompras/${this.search}`
-        );
-        if (!response.ok) {
-          return;
-        }
-        const data = await response.json();
-        // Obtener la cookie con el nombre "userLogged"
-        const tokenUserName = decodeURIComponent(Cookies.get("userLogged"));
-
-        // Decodificar el token para obtener el nombre de usuario y el id del usuario
-        const decodedToken = JSON.parse(tokenUserName);
-        const userNameToken = decodedToken.userName;
-
-        this.carritos = Array.isArray(data) ? data.filter((carrito) => carrito.userName === userNameToken) : [data];
-      }
-    },
-    */
     async mostrarDetalleVenta() {
       const response = await fetch("https://localhost:44335/api/CarritoCompras/");
       if (!response.ok) {
