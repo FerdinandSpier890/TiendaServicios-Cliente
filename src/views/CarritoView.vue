@@ -112,9 +112,13 @@ export default {
         autorLibro: product.autorLibro,
       };
       this.cart.push(cartItem);
+      // Guardar carrito en localStorage
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     removeFromCart(index) {
       this.cart.splice(index, 1);
+      // Guardar carrito en localStorage
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     async checkout() {
       // Verificar si hay productos en el carrito
@@ -148,44 +152,61 @@ export default {
       const decodedToken = JSON.parse(tokenUserName);
       const userName = decodedToken.userName;
 
-      const nuevaCompra = {
-        fechaCreacionSesion: this.fechaCreacionSesion,
-        userName: userName,
-        productoLista: this.cart.map((producto) => producto.libreriaMateriaId),
-      };
-      const response = await fetch(
-        "https://localhost:44335/api/CarritoCompras",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(nuevaCompra),
+      // Mostrar un SweetAlert de confirmación antes de realizar la compra
+      const confirmationResult = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "¿Quieres confirmar la compra?",
+        icon: "question",
+        confirmButtonClass: "btn-success",
+        cancelButtonClass: "btn-error",
+        showCancelButton: true,
+        confirmButtonText: "Sí, comprar",
+        cancelButtonText: "No, cancelar",
+      });
+
+      // Verificar si el usuario confirmó la compra
+      if (confirmationResult.isConfirmed) {
+        const nuevaCompra = {
+          fechaCreacionSesion: this.fechaCreacionSesion,
+          userName: userName,
+          productoLista: this.cart.map((producto) => producto.libreriaMateriaId),
+        };
+        const response = await fetch(
+          "https://localhost:44335/api/CarritoCompras",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(nuevaCompra),
+          }
+        );
+
+        if (!response.ok) {
+          Swal.fire({
+            title: "¡Error!",
+            text: "No Se Pudo Realizar la Compra, Intentalo de Nuevo",
+            icon: "error",
+            confirmButtonClass: "btn-error",
+          });
+          return;
+        } else {
+          const total = this.getTotal.toFixed(2);
+          Swal.fire({
+            title: "¡Compra Exitosa!",
+            text: `Se Realizó la Compra Exitosamente,\nPagaste un Total de $${total}`,
+            icon: "success",
+            confirmButtonClass: "btn-success",
+          });
+
+          localStorage.clear();
+          this.$router.push("/carritodetalle");
         }
-      );
-
-      if (!response.ok) {
-        Swal.fire({
-          title: "¡Error!",
-          text: "No Se Pudo Realizar la Compra, Intentalo de Nuevo",
-          icon: "error",
-          confirmButtonClass: "btn-error",
-        });
-        return;
-      } else {
-        const total = this.getTotal.toFixed(2);
-        Swal.fire({
-          title: "¡Compra Exitosa!",
-          text: `Se Realizó la Compra Exitosamente,\nPagaste un Total de $${total}`,
-          icon: "success",
-          confirmButtonClass: "btn-success",
-        });
-
         this.cart = [];
-        this.$router.push("/carritodetalle");
       }
     },
+
     async fetchProducts() {
       try {
         const response = await fetch("https://localhost:44398/api/Libros");
@@ -219,6 +240,12 @@ export default {
   },
   mounted() {
     this.fetchProducts();
+
+    // Recuperar carrito de localStorage
+    const cart = localStorage.getItem("cart");
+    if (cart) {
+      this.cart = JSON.parse(cart);
+    }
   },
 };
 </script>

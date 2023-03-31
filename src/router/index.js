@@ -8,6 +8,7 @@ import LibreriasView from "../views/LibreriasView.vue";
 import LibrosView from "../views/LibrosView.vue";
 import CarritoView from "../views/CarritoView.vue";
 import CarritoDetalleView from "../views/CarritoDetalleView.vue";
+import DetalleCompraView from "../views/DetalleCompraView.vue";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 
@@ -66,6 +67,12 @@ const routes = [
     path: "/carritodetalle",
     name: "carritodetalle",
     component: CarritoDetalleView,
+    beforeEnter: requireAuth
+  },
+  {
+    path: "/detallegeneral",
+    name: "detallegeneral",
+    component: DetalleCompraView,
     beforeEnter: requireAuth
   },
 ];
