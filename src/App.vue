@@ -39,7 +39,15 @@
             <v-icon>mdi-store</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>Detalle de Compras - SQL Server</v-list-item-title>
+            <v-list-item-title>Detalle de Compras Por Usuario - SQL Server</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/detallegeneral" link>
+          <v-list-item-icon>
+            <v-icon>mdi-store</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>Detalle de Compras Genaral - SQL Server</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -55,8 +63,8 @@
         <v-btn text to="/librerias"><v-icon left>mdi-library</v-icon>Librerías</v-btn>
         <v-btn text to="/libros"><v-icon left>mdi-book</v-icon>Libros</v-btn>
         <v-btn text to="/carrito"><v-icon left>mdi-cart</v-icon> Carrito de compras</v-btn>
-        <v-btn text to="/carritodetalle"><v-icon left>mdi-store</v-icon>Detalle de Mis Compras</v-btn>
-        <v-btn text to="/detallegeneral"><v-icon left>mdi-store</v-icon>Detalle de Compras en General</v-btn>
+        <v-btn text to="/carritodetalle"><v-icon left>mdi-store</v-icon>Compras de {{ userNameToken }}</v-btn>
+        <v-btn text to="/detallegeneral"><v-icon left>mdi-store</v-icon>Compras Realizadas por Todos</v-btn>
 
         <br />
         <v-btn><v-icon left>mdi-account</v-icon> {{ userNameToken }} </v-btn>

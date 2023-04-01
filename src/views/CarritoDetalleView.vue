@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <h2>Detalle de Compras de {{carrito.userName.toUpperCase()}}</h2>
+        <h2>Compras de {{ this.userNameToken.toUpperCase() }}</h2>
         <v-row>
           <v-col cols="12" md="6">
             <v-btn block depressed color="info dark" dark elevation="10" @click="hacerCompra">
@@ -73,6 +73,7 @@ import Swal from "sweetalert2";
 export default {
   data() {
     return {
+      userNameToken: '',
       cart: [],
       carritos: [],
       search: "",
@@ -128,9 +129,9 @@ export default {
 
       // Decodificar el token para obtener el nombre de usuario
       const decodedToken = JSON.parse(tokenUserName);
-      const userNameToken = decodedToken.userName;
+      this.userNameToken = decodedToken.userName;
 
-      this.carritos = data.filter((carrito) => carrito.userName === userNameToken);
+      this.carritos = data.filter((carrito) => carrito.userName === this.userNameToken);
     },
   },
 };
