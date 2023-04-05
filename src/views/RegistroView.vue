@@ -81,7 +81,7 @@ export default {
             setTimeout(() => {
               Swal.fire({
                 title: "¡Error!",
-                text: "Por el Momento no Puedes Crear una Cuenta, Ese Usuario Ya Existe, Intentalo Mas Tarde",
+                text: "El Usuario Con El Que Quieres Registrate Ya Esta Asociado A Una Cuenta, Intentalo Con Otro Nombre",
                 icon: "error",
                 confirmButtonClass: "btn-error",
               });
@@ -92,7 +92,7 @@ export default {
             if (responseData.status == 400) {
               Swal.fire({
                 title: "¡Error!",
-                text: "El Nombre de Usuario ya Existe",
+                text: "El Usuario Con El Que Quieres Registrate Ya Esta Asociado A Una Cuenta, Intentalo Con Otro Nombre",
                 icon: "error",
                 confirmButtonClass: "btn-error",
               });

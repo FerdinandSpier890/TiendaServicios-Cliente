@@ -21,7 +21,7 @@ function isAuthenticated() {
 
 const requireAuth = (to, from, next) => {
   if (!isAuthenticated()) {
-    Swal.fire("¡Error!", "Recuerda que Primero Debes Iniciar Sesión", "error");
+    Swal.fire("¡Error!", "Recuerda que Primero Debes Iniciar Sesión Para Ir A Los Sitios", "error");
     next("/");
   } else {
     next();
