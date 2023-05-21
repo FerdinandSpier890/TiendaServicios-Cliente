@@ -64,11 +64,33 @@
         <v-btn text to="/libros"><v-icon left>mdi-book</v-icon>Libros</v-btn>
         <v-btn text to="/carrito"><v-icon left>mdi-cart</v-icon> Carrito de compras</v-btn>
         <v-btn text to="/carritodetalle"><v-icon left>mdi-store</v-icon>Compras de {{ userNameToken }}</v-btn>
-        <v-btn text to="/detallegeneral"><v-icon left>mdi-store</v-icon>Compras Realizadas por Todos</v-btn>
-
-        <br />
-        <v-btn><v-icon left>mdi-account</v-icon> {{ userNameToken }} </v-btn>
-
+        <v-btn text to="/detallegeneral"><v-icon left>mdi-store</v-icon>Compras en General</v-btn>
+        <v-btn text to="/productos"><v-icon left>mdi-shop</v-icon>Productos</v-btn>
+        <v-btn text to="" style="margin-left: 50px">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon>
+                <v-icon left>mdi-account-circle</v-icon> {{ userNameToken }}
+              </v-btn>
+            </template>
+            <v-menu-content>
+              <v-list>
+                <v-list-item @click="cerrarSesion">
+                  <v-list-item-icon>
+                    <v-icon>mdi-logout</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>Cerrar Sesión</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="crearCuenta">
+                  <v-list-item-icon>
+                    <v-icon>mdi-account-plus</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>Crear Cuenta</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu-content>
+          </v-menu>
+        </v-btn>
       </div>
       <v-spacer></v-spacer>
     </v-app-bar>
@@ -115,6 +137,8 @@
 
 <script>
 import Cookies from "js-cookie";
+import auth from "./logic/auth.js";
+import Swal from "sweetalert2";
 export default {
   name: "App",
 
@@ -132,6 +156,20 @@ export default {
     }
   },
   methods: {
+    cerrarSesion() {
+      Swal.fire({
+        title: "¡Adios!",
+        text: "Gracias Por Usar Tienda Servicios, Vuelve Pronto :D",
+        icon: "success",
+        confirmButtonClass: "btn-success",
+      });
+      auth.deleteUserLogged();
+      location.reload();
+      this.$router.go(0);
+    },
+    crearCuenta() {
+      this.$router.push("/registro")
+    }
   },
 };
 </script>

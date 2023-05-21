@@ -54,16 +54,6 @@
         </v-row>
       </v-col>
     </v-row>
-    <br />
-    <div class="text-center">
-      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
-        <v-icon>mdi-login</v-icon> Iniciar Sesión
-      </v-btn>
-      ㅤㅤ
-      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
-        <v-icon>mdi-logout</v-icon> Cerrar Sesión
-      </v-btn>
-    </div>
   </v-container>
 </template>
 <script>
@@ -92,14 +82,6 @@ export default {
     this.mostrarDetalleVenta();
   },
   methods: {
-    cerrarSesion() {
-      auth.deleteUserLogged();
-      location.reload();
-      this.$router.go(0);
-    },
-    iniciarSesion() {
-      this.$router.push("/");
-    },
     hacerCompra() {
       this.$router.push("/carrito");
     },

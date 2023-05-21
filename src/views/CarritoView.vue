@@ -15,7 +15,8 @@
                 product.precio.toFixed(2) }}</v-card-text>
               <v-card-actions>
                 <v-btn class="mx-auto d-flex align-center" depressed color="primary dark" dark elevation="10"
-                  @click="addToCart(product)">
+                  @click="addToCart(product); cartCount++"
+  style="transition: all 0.5s ease;">
                   <v-icon>mdi-cart-plus</v-icon> Agregar al carrito
                 </v-btn>
               </v-card-actions>
@@ -28,7 +29,7 @@
         <br />
         <v-row>
           <v-col v-for="(item, index) in cart" :key="index" md="6">
-            <v-card class="mx-auto" max-width="350" style="border: 5px solid #3e7864" elevation="10">
+            <v-card ref="cart" class="mx-auto" max-width="350" style="border: 5px solid #3e7864" elevation="10">
               <v-img :src="imagen" height="200px" />
               <v-card-title class="font-weight-bold">{{
                 item.titulo
@@ -69,16 +70,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <br />
-    <div class="text-center">
-      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
-        <v-icon>mdi-login</v-icon> Iniciar Sesión
-      </v-btn>
-      ㅤㅤ
-      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
-        <v-icon>mdi-logout</v-icon> Cerrar Sesión
-      </v-btn>
-    </div>
   </v-container>
 </template>
 <script>
@@ -95,6 +86,7 @@ export default {
       fechaCreacionSesion: new Date().toISOString(),
       productoLista: [],
       libreriaMateriaId: "",
+      cartCount: 0, // Nueva propiedad
     };
   },
   computed: {
@@ -114,11 +106,26 @@ export default {
       this.cart.push(cartItem);
       // Guardar carrito en localStorage
       localStorage.setItem("cart", JSON.stringify(this.cart));
+
+      const button = event.currentTarget;
+  button.style.transform = "translate(0, -50px)";
+  button.style.opacity = 0;
+  setTimeout(() => {
+    button.style.transform = "none";
+    button.style.opacity = 1;
+  }, 1000);
     },
     removeFromCart(index) {
       this.cart.splice(index, 1);
       // Guardar carrito en localStorage
       localStorage.setItem("cart", JSON.stringify(this.cart));
+
+      // Agregar animación al carrito
+      const cartEl = this.$refs.cart;
+      cartEl.classList.add("animate__animated", "animate__bounceIn");
+      setTimeout(() => {
+        cartEl.classList.remove("animate__animated", "animate__bounceIn");
+      }, 1000);
     },
     async checkout() {
       // Verificar si hay productos en el carrito
@@ -228,14 +235,6 @@ export default {
           confirmButtonClass: "btn-error",
         });
       }
-    },
-    cerrarSesion() {
-      auth.deleteUserLogged();
-      location.reload();
-      this.$router.go(0);
-    },
-    iniciarSesion() {
-      this.$router.push("/");
     },
   },
   mounted() {

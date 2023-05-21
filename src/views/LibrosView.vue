@@ -59,16 +59,6 @@
         </v-col>
       </v-row>
     </v-col>
-    <br />
-    <div class="text-center">
-      <v-btn depressed color="success dark" dark elevation="10" @click="iniciarSesion">
-        <v-icon>mdi-login</v-icon> Iniciar Sesión
-      </v-btn>
-      ㅤㅤ
-      <v-btn depressed color="error dark" dark elevation="10" @click="cerrarSesion">
-        <v-icon>mdi-logout</v-icon> Cerrar Sesión
-      </v-btn>
-    </div>
     <v-dialog v-model="nuevoLibro">
       <v-card>
         <v-card-title>
@@ -244,19 +234,11 @@ export default {
       this.precio = "";
       this.mostrarLibros();
     },
-    cerrarSesion() {
-      auth.deleteUserLogged();
-      location.reload();
-      this.$router.go(0);
-    },
     convertirPrecio(valor) {
       if (!valor) {
         return null;
       }
       return parseFloat(valor);
-    },
-    iniciarSesion() {
-      this.$router.push("/");
     },
   },
 };

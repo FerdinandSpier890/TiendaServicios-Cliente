@@ -13,11 +13,12 @@
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
               <v-text-field v-model="userName" :rules="usernameRules" type="text" label="Nombre de Usuario"
-                placeholder="Nombre de Usuario" prepend-inner-icon="mdi-account" required />
+                placeholder="Nombre de Usuario" prepend-inner-icon="mdi-account" required
+                @keydown.enter="submitHandler" />
               <v-text-field v-model="password" :rules="passwordRules" :type="passwordShow ? 'text' : 'password'"
                 label="Contraseña" placeholder="Contraseña" prepend-inner-icon="mdi-key"
                 :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'" @click:append="passwordShow = !passwordShow"
-                required />
+                required @keydown.enter="submitHandler" />
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn :loading="loading" type="submit" color="indigo">
@@ -91,7 +92,7 @@ export default {
             setTimeout(() => {
               Swal.fire({
                 title: "¡Bienvenido!",
-                text: ":D",
+                text: "Holiwis :D",
                 icon: "success",
                 confirmButtonClass: "btn-success",
               });
