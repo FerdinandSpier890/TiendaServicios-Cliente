@@ -65,7 +65,7 @@
         <v-btn text to="/carrito"><v-icon left>mdi-cart</v-icon> Carrito de compras</v-btn>
         <v-btn text to="/carritodetalle"><v-icon left>mdi-store</v-icon>Compras de {{ userNameToken }}</v-btn>
         <v-btn text to="/detallegeneral"><v-icon left>mdi-store</v-icon>Compras en General</v-btn>
-        <v-btn text to="/productos"><v-icon left>mdi-shop</v-icon>Productos</v-btn>
+        <v-btn text to="/productos"><v-icon left>mdi-atm</v-icon>Productos</v-btn>
         <v-btn text to="" style="margin-left: 50px">
           <v-menu offset-y>
             <template v-slot:activator="{ on }">

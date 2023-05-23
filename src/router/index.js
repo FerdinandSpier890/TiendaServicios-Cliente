@@ -80,7 +80,7 @@ const routes = [
     path: "/productos",
     name: "productos",
     component: ProductosView,
-    beforeEnter: requireAuth
+    // beforeEnter: requireAuth
   },
 ];
 

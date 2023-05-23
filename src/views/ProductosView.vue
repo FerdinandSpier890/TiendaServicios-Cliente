@@ -5,11 +5,11 @@
         <v-row>
             <v-col cols="12" md="6">
                 <v-text-field v-model="searchById" label="Buscar por ID" @input="buscarProductoId"
-                    prepend-inner-icon="mdi-book"></v-text-field>
+                    prepend-inner-icon="mdi-apps"></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
                 <v-text-field v-model="searchByCategory" label="Buscar por Categoria" @input="buscarProductoCategoria"
-                    prepend-inner-icon="mdi-book"></v-text-field>
+                    prepend-inner-icon="mdi-folder"></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
                 <v-btn block depressed color="info dark" dark elevation="10" @click="nuevoProducto = true"
@@ -21,7 +21,7 @@
         <v-col>
             <v-row class="d-flex align-center justify-center">
                 <v-col v-for="productos in products" :key="productos.id" md="3">
-                    <v-card class="mx-auto align-center" max-width="250" style="border: 5px solid #3e7864" elevation="10">
+                    <v-card class="mx-auto align-center" max-width="250" style="border: 5px solid #65233d" elevation="10">
                         <v-img :src="imagen" height="200px" />
                         <v-card-title class="font-weight-bold">{{
                             productos.nombre
@@ -37,21 +37,25 @@
                             Precio: ${{ productos.precio.toFixed(2) }}
                         </v-card-text>
 
-                        <!-- Botón de eliminar -->
-                        <v-btn @click="eliminarProducto(productos.id)" color="red" dark>
-                            Eliminar
-                        </v-btn>
-
-                        <!-- Botón de actualizar -->
-                        <v-btn @click="abrirDialogo(productos)" color="blue" dark>
-                            Actualizar
-                        </v-btn>
+                        <v-row class="mx-auto text-center my-4">
+                            <!-- Botón de eliminar -->
+                            <v-btn block depressed @click="eliminarProducto(productos.id)" color="red" dark>
+                                <v-icon left>mdi-delete</v-icon> Eliminar
+                            </v-btn>
+                        </v-row>
+                        
+                        <v-row class="mx-auto text-center my-4">
+                            <!-- Botón de actualizar -->
+                            <v-btn block depressed @click="abrirDialogo(productos)" color="purple" dark>
+                                <v-icon left>mdi-update</v-icon> Actualizar
+                            </v-btn>
+                        </v-row>
                     </v-card>
                 </v-col>
             </v-row>
             <v-dialog v-model="dialogoAbierto" max-width="500px">
                 <v-card>
-                    <v-card-title>Actualizar Registro</v-card-title>
+                    <v-card-title>Actualizar Producto</v-card-title>
                     <v-card-text>
                         <v-form ref="formulario" @submit.prevent="actualizarProducto">
                             <v-text-field v-model="formulario.nombre" label="Nombre"></v-text-field>
@@ -63,8 +67,8 @@
                                 step="0.01"></v-text-field>
 
                             <v-card-actions>
-                                <v-btn type="submit" color="green">Guardar</v-btn>
-                                <v-btn @click="cerrarDialogo" color="red">Cancelar</v-btn>
+                                <v-btn type="submit" color="green"><v-icon left>mdi-star</v-icon> Guardar</v-btn>
+                                <v-btn @click="cerrarDialogo" color="red"><v-icon left>mdi-cancel</v-icon> Cancelar</v-btn>
                             </v-card-actions>
                         </v-form>
                     </v-card-text>
@@ -79,15 +83,15 @@
                 <v-card-text>
                     <v-form v-model="valid">
                         <v-text-field v-model="nombre" label="Nombre del Producto" required
-                            prepend-inner-icon="mdi-book"></v-text-field>
+                            prepend-inner-icon="mdi-keyboard"></v-text-field>
                         <v-text-field v-model="categoria" label="Categoría del Producto" required
-                            prepend-inner-icon="mdi-calendar-month"></v-text-field>
+                            prepend-inner-icon="mdi-keyboard"></v-text-field>
                         <v-text-field v-model="resumen" label="Resumen del Producto" required
-                            prepend-inner-icon="mdi-currency-usd"></v-text-field>
+                            prepend-inner-icon="mdi-calendar-month"></v-text-field>
                         <v-text-field v-model="descripcion" label="Descripción del Producto" required
-                            prepend-inner-icon="mdi-currency-usd"></v-text-field>
+                            prepend-inner-icon="mdi-keyboard"></v-text-field>
                         <v-text-field v-model="imagenArchivo" label="Imagen del Producto" required
-                            prepend-inner-icon="mdi-currency-usd"></v-text-field>
+                            prepend-inner-icon="mdi-image"></v-text-field>
                         <v-text-field v-model="precio" label="Precio del Producto" required
                             prepend-inner-icon="mdi-currency-usd"></v-text-field>
                     </v-form>
@@ -135,7 +139,7 @@ export default {
                 precio: '',
             },
             imagen:
-                "https://imgs.search.brave.com/SFSzfeW-gCCuXfliFXj44AH1M9FbRRXfUuxEzuSTwmg/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly93d3cu/YWRhemluZy5jb20v/d3AtY29udGVudC91/cGxvYWRzLzIwMTkv/MDIvc3RhY2tlZC1i/b29rLWNsaXBhcnQt/MTEucG5n",
+                "https://img.freepik.com/vector-premium/dibujos-animados-productos-supermercado_24640-55628.jpg",
         };
     },
     created() {
@@ -143,7 +147,7 @@ export default {
     },
     methods: {
         async mostrarProductos() {
-            const response = await fetch("http://169.254.135.234:9091/api/Catalog");
+            const response = await fetch("http://169.254.159.239:9191/api/Catalog");
             if (!response.ok) {
                 Swal.fire({
                     title: "¡Error!",
@@ -158,12 +162,12 @@ export default {
         },
         async buscarProductoId() {
             if (this.searchById === "") {
-                const response = await fetch("https://localhost:44364/api/Catalog/");
+                const response = await fetch("http://169.254.159.239:9191/api/Catalog");
                 const data = await response.json();
                 this.products = data;
             } else {
                 const response = await fetch(
-                    `https://localhost:44364/api/Catalog/${this.searchById}`
+                    `http://169.254.159.239:9191/api/Catalog/${this.searchById}`
                 );
                 if (!response.ok) {
                     return;
@@ -174,11 +178,11 @@ export default {
         },
         async buscarProductoCategoria() {
             if (this.searchByCategory === "") {
-                const response = await fetch("https://localhost:44364/api/Catalog/");
+                const response = await fetch("http://169.254.159.239:9191/api/Catalog");
                 const data = await response.json();
                 this.products = data;
             } else {
-                const response = await fetch(`https://localhost:44364/api/Catalog/GetProductByCategory/${this.searchByCategory}`);
+                const response = await fetch(`http://169.254.159.239:9191/api/Catalog/GetProductByCategory/${this.searchByCategory}`);
                 if (!response.ok) {
                     return;
                 }
@@ -188,6 +192,7 @@ export default {
         },
 
         async eliminarProducto(id) {
+            /*
             // Obtener el token de la cookie
             const token = Cookies.get("token");
             // Verificar si el token está presente en la cookie
@@ -200,10 +205,13 @@ export default {
                 });
                 return;
             }
+            */
             try {
-                const response = await fetch(`https://localhost:44364/api/Catalog/${id}`, {
-                    method: 'DELETE',
+                const response = await fetch(`http://169.254.159.239:9191/api/Catalog/${id}`, {
+                    method: "DELETE",
                 });
+                console.log(response)
+                console.log(id)
                 if (response.ok) {
                     // Actualizar la lista de productos después de eliminar
                     this.products = this.products.filter((producto) => producto.id !== id);
@@ -213,6 +221,7 @@ export default {
                         icon: "success",
                         confirmButtonClass: "btn-success",
                     });
+                    console.log(response)
                 } else {
                     Swal.fire({
                         title: "¡Error!",
@@ -220,6 +229,7 @@ export default {
                         icon: "error",
                         confirmButtonClass: "btn-error",
                     });
+                    console.log(response)
                 }
             } catch (error) {
                 Swal.fire({
@@ -228,11 +238,14 @@ export default {
                     icon: "error",
                     confirmButtonClass: "btn-error",
                 });
-                console.error('Error al eliminar el producto', error);
+                console.log('Error al eliminar el producto', error);
+                console.log(error)
             }
         },
         async guardarProducto() {
+
             // Obtener el token de la cookie
+            /*
             const token = Cookies.get("token");
             // Verificar si el token está presente en la cookie
             if (!token) {
@@ -244,52 +257,59 @@ export default {
                 });
                 return;
             }
+            */
 
-            const precioConvertido = this.convertirPrecio(this.precio);
+            try {
+                const precioConvertido = this.convertirPrecio(this.precio);
 
-            const nuevoProducto = {
-                nombre: this.nombre,
-                categoria: this.categoria,
-                resumen: this.resumen,
-                descripcion: this.descripcion,
-                imagenArchivo: this.imagenArchivo,
-                precio: precioConvertido
-            };
+                const nuevoProducto = {
+                    nombre: this.nombre,
+                    categoria: this.categoria,
+                    resumen: this.resumen,
+                    descripcion: this.descripcion,
+                    imagenArchivo: this.imagenArchivo,
+                    precio: precioConvertido
+                };
 
-            const response = await fetch("http://169.254.135.234:9091/api/Catalog/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(nuevoProducto),
-            });
-
-            if (!response.ok) {
-                Swal.fire({
-                    title: "¡Error!",
-                    text: "No Se Pudo Registrar el Producto, Intentalo de Nuevo",
-                    icon: "error",
-                    confirmButtonClass: "btn-error",
+                const response = await fetch("http://169.254.159.239:9191/api/Catalog", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        // Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(nuevoProducto),
                 });
-                return;
-            } else {
-                Swal.fire({
-                    title: "¡Registro Exitoso!",
-                    text: "Se Registró el Producto Exitosamente",
-                    icon: "success",
-                    confirmButtonClass: "btn-success",
-                });
+
+                if (!response.ok) {
+                    Swal.fire({
+                        title: "¡Error!",
+                        text: "No Se Pudo Registrar el Producto, Intentalo de Nuevo",
+                        icon: "error",
+                        confirmButtonClass: "btn-error",
+                    });
+                    return;
+                } else {
+                    Swal.fire({
+                        title: "¡Registro Exitoso!",
+                        text: "Se Registró el Producto Exitosamente",
+                        icon: "success",
+                        confirmButtonClass: "btn-success",
+                    });
+                }
+
+                console.log(response)
+
+                this.nuevoProducto = false;
+                this.nombre = "";
+                this.categoria = "";
+                this.resumen = "";
+                this.descripcion = "";
+                this.imagenArchivo = "";
+                this.precio = "";
+                this.mostrarProductos();
+            } catch (error) {
+                console.log(error)
             }
-
-            this.nuevoProducto = false;
-            this.nombre = "";
-            this.categoria = "";
-            this.resumen = "";
-            this.descripcion = "";
-            this.imagenArchivo = "";
-            this.precio = "";
-            this.mostrarProductos();
         },
         convertirPrecio(valor) {
             if (!valor) {
@@ -332,8 +352,8 @@ export default {
                 // Asignar el valor convertido al formulario
                 this.formulario.precio = precioConvertido;
 
-                const response = await fetch(`https://localhost:44364/api/Catalog/${this.formulario.id}`, {
-                    method: 'PUT',
+                const response = await fetch(`http://169.254.159.239:9191/api/Catalog/${this.formulario.id}`, {
+                    method: "PUT",
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -375,6 +395,6 @@ export default {
 </script>
 <style>
 .border-green {
-    border: 2px solid #146b63;
+    border: 2px solid #65233d;
 }
 </style>  
